@@ -43,6 +43,11 @@ export const navItems: NavItem[] = [
     route: '/ui-components/forms',
   },
   {
+    displayName: 'Modals',
+    iconName: 'window',
+    route: '/ui-components/modals',
+  },
+  {
     displayName: 'Tables',
     iconName: 'table',
     route: '/ui-components/tables',

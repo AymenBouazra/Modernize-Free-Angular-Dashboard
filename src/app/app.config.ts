@@ -4,7 +4,6 @@ import {
   importProvidersFrom,
 } from '@angular/core';
 import {
-  HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
@@ -30,6 +29,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { provideHotToastConfig } from '@ngneat/hot-toast';
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -51,5 +53,6 @@ export const appConfig: ApplicationConfig = {
       TablerIconsModule.pick(TablerIcons),
       NgScrollbarModule,
     ),
+    provideHotToastConfig(),
   ],
 };

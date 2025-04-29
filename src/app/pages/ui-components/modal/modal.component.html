@@ -1,0 +1,20 @@
+<mat-card class="cardWithShadow theme-card">
+ <mat-card-header>
+   <mat-card-title class="m-b-0">Modals</mat-card-title>
+ </mat-card-header>
+ <mat-card-content class="b-t-1">
+  <div class="row">
+   <div class="col-md-12 m-y-20">
+    <mat-card-title class="m-b-10">Dialog with animations</mat-card-title>
+    <button mat-raised-button (click)="openDialog('confirmation', '0ms', '0ms',{})">Open dialog without animation</button>
+    <button mat-raised-button (click)="openDialog('confirmation','1000ms', '500ms',{})">Open dialog slowly</button>
+   </div>
+   <div class="col-md-12 m-y-5">
+    <mat-card-title class="m-b-10">Dialog with header, scrollable content and actions</mat-card-title>
+    <button mat-raised-button (click)="openDialog('description','0ms', '0ms',{})">Install Angular</button>
+   </div>
+
+  </div>
+ </mat-card-content>
+</mat-card>
+

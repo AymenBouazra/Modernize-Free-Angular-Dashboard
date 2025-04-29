@@ -1,5 +1,5 @@
 {
-  "name": "modernize",
+  "name": "smart-work",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@ngneat/hot-toast": "^6.1.0",
+    "@ngneat/overview": "5.1.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "angular-tabler-icons": "^2.7.0",
