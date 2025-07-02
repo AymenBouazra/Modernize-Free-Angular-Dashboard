@@ -33,7 +33,7 @@ export class AppSideLoginComponent {
     return this.form.controls;
   }
 
-  checkUserExists(){
+  checkUserExists() {
     if (this.form.invalid) {
       this.toast.error('Remplissez tous les champs', {
         duration: 3000,
@@ -41,7 +41,6 @@ export class AppSideLoginComponent {
       });
       return;
     }
-    console.log(this.form.errors);
 
 
     this.authService.checkEmail(this.form.value).subscribe({
@@ -82,6 +81,8 @@ export class AppSideLoginComponent {
       this.authService.login(this.form.value).subscribe({
         next: (v: any) => {
           this.router.navigate(['/'])
+          localStorage.setItem('token', v.token);
+          this.toast.success('Connexion réussie')
 
         },
         error: (e) => console.error(e),
@@ -95,6 +96,8 @@ export class AppSideLoginComponent {
         this.authService.updateAndLogin(this.user._id, this.form.value).subscribe({
           next: (v: any) => {
             this.router.navigate(['/']);
+            localStorage.setItem('token', v.token);
+            this.toast.success('Connexion réussie')
           },
           error: (e) => console.error(e),
           complete: () => console.info('complete'),

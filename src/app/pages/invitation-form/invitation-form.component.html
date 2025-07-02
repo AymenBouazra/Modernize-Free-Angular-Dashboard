@@ -1,0 +1,20 @@
+<mat-card class="cardWithShadow">
+  <mat-card-header>
+    <mat-card-title>Ajouter un utilisateur</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form *ngIf="invitationForm" [formGroup]="invitationForm" (ngSubmit)="onSubmit()">
+     <mat-label>Email d'utilisateur</mat-label>
+     <mat-form-field appearance="outline" class="w-100" color="primary">
+      <input matInput formControlName="email" required>
+     </mat-form-field>
+     <mat-error *ngIf="isSubmitted && invitationForm.get('email')?.hasError('required')">
+       L'email d'utilisateur est requis.
+     </mat-error>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="invitationForm.invalid">
+        {{isLoading ? 'Envoi en cours...' : 'Envoyer l\'invitation'}}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

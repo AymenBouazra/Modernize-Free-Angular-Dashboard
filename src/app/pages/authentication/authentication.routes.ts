@@ -14,7 +14,7 @@ export const AuthenticationRoutes: Routes = [
         component: AppSideLoginComponent,
       },
       {
-        path: 'register',
+        path: 'register/:invitationId',
         component: AppSideRegisterComponent,
       },
       {

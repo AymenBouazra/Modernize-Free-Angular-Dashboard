@@ -13,6 +13,16 @@ export const navItems: NavItem[] = [
     navCap: 'Ui Components',
   },
   {
+    displayName: 'Invitation',
+    iconName: 'mail-plus',
+    route: '/dashboard/invitation',
+  },
+  {
+    displayName: 'Users',
+    iconName: 'users',
+    route: '/dashboard/users',
+  },
+  {
     displayName: 'Badge',
     iconName: 'archive',
     route: '/ui-components/badge',

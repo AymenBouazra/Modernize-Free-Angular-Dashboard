@@ -1,0 +1,79 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Users List</mat-card-title>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="users" class="w-100">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
+            Nom complet
+          </th>
+          <td mat-cell *matCellDef="let user" class="p-l-0">
+            <div class="d-flex align-items-center">
+                <span class="bg-light-primary text-primary rounded-circle p-8">{{ user.firstname?.charAt(0) }}{{ user.lastname?.charAt(0) }}</span>
+              <div class="m-l-16">
+                <h6 class="f-s-14 f-w-600">
+                  {{ user.firstname }} {{ user.lastname }}
+                </h6>
+                <span class="f-s-12" 
+                  [class.text-success]="user?.role === 'Manager'"
+                  [class.text-info]="user?.role === 'Employee'">{{ user.role }}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Email
+          </th>
+          <td mat-cell *matCellDef="let user">
+            <h6 class="f-s-14 m-b-4">
+              <span class="text-dark">{{ user.email }}</span>
+            </h6>
+            <span class="f-s-12 text-muted">Joined {{ user.createdAt | date }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14"></th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>visibility</mat-icon>
+                <span>View</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <mat-paginator [length]="totalUsers"
+                   [pageSize]="pageSize"
+                   [pageIndex]="currentPage - 1"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="onPageChange($event)"
+                   aria-label="Select page"
+                   class="mt-4">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>
