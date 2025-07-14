@@ -1,0 +1,102 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title class="d-flex justify-content-between align-items-center">
+      <span>Liste des utilisateurs</span>
+      <button mat-flat-button [routerLink]="['/dashboard/workspaces/add']" class="btn-primary" aria-label="Ajouter un espace de travail">
+        <mat-icon >room</mat-icon>
+        Ajouter un espace de travail
+      </button>
+    </mat-card-title>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="workspaces" class="w-100">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
+            Nom complet
+          </th>
+          <td mat-cell *matCellDef="let workspace" class="p-l-0">
+            <div class="d-flex align-items-center">
+              <span class="bg-light-primary text-primary rounded-circle p-8"><mat-icon>room</mat-icon></span>
+              <div class="m-l-16">
+                <h6 class="f-s-14 f-w-600">
+                  {{ workspace.name }}
+                </h6>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Disposition
+          </th>
+          <td mat-cell *matCellDef="let workspace">
+              <span class="text-dark">{{ workspace.location }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="businessUnit">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Unité d'organisation
+          </th>
+          <td mat-cell *matCellDef="let workspace">
+              <span class="text-dark">{{ workspace.businessUnit.name }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="isAvailable">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Disponible
+          </th>
+          <td mat-cell *matCellDef="let workspace">
+              <span class="text-dark">{{ workspace.isAvailable }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="isMeetingRoom">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Salle de Réunion
+          </th>
+          <td mat-cell *matCellDef="let workspace">
+              <span class="text-dark">{{ workspace.isMeetingRoom }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14"></th>
+          <td mat-cell *matCellDef="let workspace">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['edit', workspace._id]" routerLinkActive="router-link-active">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="deleteWorkspace(workspace._id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <mat-paginator [length]="totalWorkspaces"
+                   [pageSize]="pageSize"
+                   [pageIndex]="currentPage - 1"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="handlePageEvent($event)"
+                   aria-label="Select page"
+                   class="mt-4">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

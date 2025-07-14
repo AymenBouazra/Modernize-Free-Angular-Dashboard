@@ -10,12 +10,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [
     MatTableModule,
+    RouterModule,
     CommonModule,
     MatCardModule,
     MaterialModule,
@@ -23,7 +26,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
     MatMenuModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
@@ -31,9 +34,18 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 export class ListComponent implements OnInit {
   isLoading: boolean = true;
   users: any[] = [];
+  length: number = 0;
   totalUsers: number = 0;
-  pageSize: number = 10;
+  pageSizeOptions = [5, 10, 25];
+  pageSize: number = 5;
+  pageIndex: number = 0;
   currentPage: number = 1;
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent: PageEvent;
 
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
@@ -46,12 +58,12 @@ export class ListComponent implements OnInit {
     this.loadUsers();
   }
 
-  loadUsers(): void {
+  loadUsers(page: number = 1, limit: number = 5): void {
     this.isLoading = true;
-    this.userService.getUsers(this.currentPage, this.pageSize).subscribe({
+    this.userService.getUsers(page, limit).subscribe({
       next: (response: any) => {
         this.users = response.data || response;
-        this.totalUsers = response.total || response.length;
+        this.totalUsers = response.pagination.total || response.data.length;
         this.isLoading = false;
       },
       error: (error) => {
@@ -61,11 +73,41 @@ export class ListComponent implements OnInit {
       }
     });
   }
-
-  onPageChange(event: PageEvent): void {
-    this.currentPage = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-    this.loadUsers();
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.loadUsers(this.pageIndex + 1, this.pageSize);
+  }
+  handleDeleteUser(user: any) {
+    Swal.fire({
+      title: 'Confirmation',
+      text: `Voulez-vous supprimer l'utilisateur ${user.firstname} ${user.lastname} ?`,
+      showCancelButton: true,
+      confirmButtonColor: '#6990FF',
+      cancelButtonColor: '#CCCCCC',
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(user._id).subscribe({
+          next: (response: any) => {
+            this.toast.success(response.message);
+            this.loadUsers();
+          },
+          error: (error) => {
+            console.error('Failed to delete user', error);
+            this.toast.error('Erreur lors de la suppression de l\'utilisateur');
+          }
+        });
+      }
+    });
   }
 
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
 }

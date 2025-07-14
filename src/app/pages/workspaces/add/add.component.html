@@ -1,0 +1,57 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-32">
+    <h3 class="text-center m-b-24">Ajouter un espace de travail</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-label class="f-s-14 f-w-600 m-b-2 d-block">Nom</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
+          Le numéro est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-2 d-block">Disposition</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="location" required>
+        <mat-error *ngIf="form.get('location')?.hasError('required') && form.get('location')?.touched">
+          La disposition est requise.
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-label class="f-s-14 f-w-600 m-b-2 d-block">Unité d'organisation</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-select formControlName="businessUnit" required >
+          @for (bu of businessUnits; track bu.value) {
+            <mat-option [value]="bu.value">{{bu.label}}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="form.get('businessUnit')?.hasError('required') && form.get('businessUnit')?.touched">
+          L'unité d'organisation est requise.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label>Salle de réunion</mat-label>
+      <mat-chip-listbox aria-label="Fish selection" formControlName="isMeetingRoom" required>
+        <mat-chip-option class="f-s-14">Oui</mat-chip-option>
+        <mat-chip-option class="f-s-14" color="primary">Non</mat-chip-option>
+      </mat-chip-listbox>
+      <mat-error class="f-s-12 m-l-14" *ngIf="form.get('isMeetingRoom')?.hasError('required') && form.get('isMeetingRoom')?.touched">
+        Selectionner un choix.
+      </mat-error>
+
+      <mat-label>Disponible</mat-label>
+      <mat-chip-listbox aria-label="Fish selection" formControlName="isAvailable" required>
+        <mat-chip-option class="f-s-14">Oui</mat-chip-option>
+        <mat-chip-option class="f-s-14" color="primary">Non</mat-chip-option>
+      </mat-chip-listbox>
+      <mat-error class="f-s-12 m-l-14" *ngIf="form.get('isMeetingRoom')?.hasError('required') && form.get('isMeetingRoom')?.touched">
+        Selectionner un choix.
+      </mat-error>
+      {{form.value | json}}
+      <button mat-flat-button color="primary" class="w-100 m-t-24" [disabled]="form.invalid">
+        Ajouter
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

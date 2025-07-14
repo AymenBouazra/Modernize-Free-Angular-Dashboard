@@ -1,0 +1,26 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-32">
+    <h3 class="text-center m-b-24">Ajouter un utilisateur</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-label class="f-s-14 f-w-600 m-b-2 d-block">Nom</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">
+          Le nom est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-2 d-block">Description</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <textarea matInput formControlName="description" required></textarea>
+        <mat-error *ngIf="form.get('description')?.hasError('required') && form.get('description')?.touched">
+          La description est requise.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="w-100 m-t-24" [disabled]="form.invalid">
+        Ajouter
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
