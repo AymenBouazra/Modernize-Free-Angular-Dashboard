@@ -27,7 +27,8 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss", 
               "src/assets/scss/style.scss", 
-              "node_modules/@ngneat/hot-toast/src/styles/styles.css"
+              "node_modules/@ngneat/hot-toast/src/styles/styles.css",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": []
           },

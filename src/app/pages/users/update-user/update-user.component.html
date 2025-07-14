@@ -1,1 +1,102 @@
-<p>update-user works!</p>
+<mat-card class="cardWithShadow boxed-auth">
+  <mat-card-content class="p-32">
+    <h3 class="text-center m-b-24">Modifier un utilisateur</h3>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Prénom</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="firstname" required>
+        <mat-error *ngIf="form.get('firstname')?.hasError('required') && form.get('firstname')?.touched">
+          Le prénom est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Nom</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="lastname" required>
+        <mat-error *ngIf="form.get('lastname')?.hasError('required') && form.get('lastname')?.touched">
+          Le nom est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Role</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-select formControlName="role" required>
+          <mat-option value="Manager">Manager</mat-option>
+          <mat-option value="Employee">Employé</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('role')?.hasError('required') && form.get('role')?.touched">
+          Le rôle est requis.
+        </mat-error>
+      </mat-form-field>
+
+      @if (form.get('role')?.value === 'Manager') {
+        <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Profil</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <mat-select formControlName="profile" required>
+            <mat-option value="Superviseur">Superviseur</mat-option>
+            <mat-option value="Normal">Normal</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('profile')?.hasError('required') && form.get('profile')?.touched">
+            Le profil est requis.
+          </mat-error>
+        </mat-form-field>
+      }
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Adresse Email</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput type="email" formControlName="email" required>
+        <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+          L'adresse email est requise.
+        </mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+          L'adresse email n'est pas valide.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Mot de passe</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Unité d'organisation</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput formControlName="businessUnit" required>
+        <mat-error *ngIf="form.get('businessUnit')?.hasError('required') && form.get('businessUnit')?.touched">
+          L'unité d'organisation est requise.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Localisation de travail</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-select formControlName="workLocation">
+          <mat-option value="remote">À distance</mat-option>
+          <mat-option value="on-site">À site</mat-option>
+          <mat-option value="hybrid">Hybride</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('workLocation')?.hasError('required') && form.get('workLocation')?.touched">
+          La localisation de travail est requise.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Jours de travail par défaut</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-select formControlName="defaultDays" multiple>
+          <mat-option value="monday">Lundi</mat-option>
+          <mat-option value="tuesday">Mardi</mat-option>
+          <mat-option value="wednesday">Mercredi</mat-option>
+          <mat-option value="thursday">Jeudi</mat-option>
+          <mat-option value="friday">Vendredi</mat-option>
+          <mat-option value="saturday">Samedi</mat-option>
+          <mat-option value="sunday">Dimanche</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('defaultDays')?.hasError('required') && form.get('defaultDays')?.touched">
+          Les jours de travail par défaut sont requis.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="w-100 m-t-24" [disabled]="form.invalid">
+        Enregistrer
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -18,9 +18,14 @@ export const navItems: NavItem[] = [
     route: '/dashboard/invitation',
   },
   {
-    displayName: 'Users',
+    displayName: 'Utilisateurs',
     iconName: 'users',
     route: '/dashboard/users',
+  },
+  {
+    displayName: 'Unités d\'organisation',
+    iconName: 'building',
+    route: '/dashboard/business-units',
   },
   {
     displayName: 'Badge',
