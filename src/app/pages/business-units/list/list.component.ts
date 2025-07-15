@@ -33,13 +33,9 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'description', 'actions'];
   length: number = 0;
   totalBusinessUnits: number = 0;
-  pageSizeOptions = [5, 10, 25];
   pageSize: number = 5;
   pageIndex: number = 0;
   currentPage: number = 1;
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
   disabled = false;
   pageEvent: PageEvent;
   isLoading: boolean = true;

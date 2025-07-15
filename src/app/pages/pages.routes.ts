@@ -7,6 +7,9 @@ import { UpdateUserComponent } from './users/update-user/update-user.component';
 import { ListComponent as ListBusinessUnitComponent } from './business-units/list/list.component';
 import { AddComponent as AddBusinessUnitComponent } from './business-units/add/add.component';
 import { EditComponent as UpdateBusinessUnitComponent } from './business-units/edit/edit.component';
+import { ListComponent as ListWorkspacesComponent } from './workspaces/list/list.component';
+import { AddComponent as AddWorkspaceComponent } from './workspaces/add/add.component';
+import { EditComponent as UpdateWorkspaceComponent } from './workspaces/edit/edit.component';
 
 export const PagesRoutes: Routes = [
   {
@@ -42,23 +45,6 @@ export const PagesRoutes: Routes = [
     ]
   },
   {
-    path: "users",
-    children: [
-      {
-        path: '',
-        component: ListUserComponent,
-      },
-      {
-        path: 'add',
-        component: AddUserComponent
-      },
-      {
-        path: 'edit/:id',
-        component: UpdateUserComponent
-      }
-    ]
-  },
-  {
     path: "business-units",
     children: [
       {
@@ -72,6 +58,23 @@ export const PagesRoutes: Routes = [
       {
         path: 'edit/:id',
         component: UpdateBusinessUnitComponent
+      }
+    ]
+  },
+  {
+    path: "workspaces",
+    children: [
+      {
+        path: '',
+        component: ListWorkspacesComponent,
+      },
+      {
+        path: 'add',
+        component: AddWorkspaceComponent
+      },
+      {
+        path: 'edit/:id',
+        component: UpdateWorkspaceComponent
       }
     ]
   }

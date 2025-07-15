@@ -23,6 +23,11 @@ export const navItems: NavItem[] = [
     route: '/dashboard/users',
   },
   {
+    displayName: 'Espace de travail',
+    iconName: 'desk',
+    route: '/dashboard/workspaces',
+  },
+  {
     displayName: 'Unités d\'organisation',
     iconName: 'building',
     route: '/dashboard/business-units',
